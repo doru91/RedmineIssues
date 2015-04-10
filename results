@@ -1,0 +1,2 @@
+add_address_automated_client-1pkt.pkt ./add_address/add_address_automated_client-1pkt.pkt 0
+add_address_specified_client.pkt ./add_address/add_address_specified_client.pkt 1
