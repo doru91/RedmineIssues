@@ -36,7 +36,7 @@ public class RedmineUpdate
 	public void updateIssuesUsingFile(String fileName) {
 		Integer projectId;
 		BufferedReader br;
-		String line;
+		String line, description = "";
 		
 		/* get the project id */
 		try {
@@ -65,33 +65,34 @@ public class RedmineUpdate
 			br = new BufferedReader(new FileReader(fileName));
 			while ((line = br.readLine()) != null) {
 				String[] arr = line.split(" ");
-				System.out.println(line);
 				if (arr.length != 3) {
 					System.out.println("Format error for \"results\" file");
 				}
 				
+				description = "";
+				if (arr[2].endsWith("!") == false) {
+					while ((line = br.readLine()) != null) {
+						description = description.concat("\n").concat(line);
+						if (line.endsWith("!"))
+							break;
+					}
+				}
+				
+				/* check if an issue with this name already exists */
 				Issue issue = getIssueWithSubject(arr[0]);
+				
+				/* create a new issue */
 				if (issue == null) {
 					System.out.println("Create new issue on Redmine: " + arr[0]);
 					Issue newIssue = IssueFactory.create(projectId, arr[0]);
 					newIssue.setSubject(arr[0]);
-					newIssue.setDescription(arr[1]);
-					if (Integer.valueOf(arr[2]) == 0)
-						newIssue.setStatusId(3);
-					else 
-						newIssue.setStatusId(2);
-					User user = getUserByName(name);
-					if (user != null)
-						newIssue.setAssignee(user);
+					setIssueProperties (newIssue, description, arr[2], arr[1], name);
 					issueManager.createIssue(newIssue);
-				
 				}
+				/* or update an existing one */
 				else {
 					System.out.println("Updating issue on Redmine: " + arr[0]);
-					issue.setStatusId(8);
-					User user = getUserByName("doru");
-					if (user != null)
-						issue.setAssignee(user);
+					setIssueProperties (issue, description, arr[2], arr[1], name);
 					issueManager.update(issue);
 				}
 			}
@@ -105,6 +106,25 @@ public class RedmineUpdate
 			System.out.println("Error creating issue.");
 			e.printStackTrace();
 		}	
+	}
+	
+	private void setIssueProperties(Issue issue, String description, String status, String path, String userName) {
+		if (status.endsWith("!"))
+			status = status.substring(0, status.length() -1);
+		
+		if (Integer.valueOf(status) == 0)
+			issue.setStatusId(3);
+		else
+			issue.setStatusId(2);
+		User user = getUserByName(userName);
+		if (user != null)
+			issue.setAssignee(user);
+		
+		if (issue.getDescription().length() > 0 && description.length() == 0)
+			return;
+		
+		description = description.concat("\n \n Path for test: " + path);
+		issue.setDescription(description);
 	}
 	
     private Issue getIssueWithSubject(String subject) {
@@ -140,8 +160,13 @@ public class RedmineUpdate
     }
     
     public static void main(String[] args) {
-    	RedmineUpdate redmine = new RedmineUpdate("redmine address", 
-    							"api access key", "MPTCP", "doru");
+    	String userName = "doru";
+    	
+    	if (args.length > 0)
+    			userName = args[0];
+    	
+    	RedmineUpdate redmine = new RedmineUpdate("http://eureka.rb.intel.com/redmine", 
+    							"9a76ae54ea219284761b166894dc7cdc0b30a733", "MPTCP", userName);
     	redmine.updateIssuesUsingFile("results");
     }
 }

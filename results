@@ -1,2 +1,53 @@
-add_address_automated_client-1pkt.pkt ./add_address/add_address_automated_client-1pkt.pkt 0
-add_address_specified_client.pkt ./add_address/add_address_specified_client.pkt 1
+add_address_automated_client-1pkt.pkt ./add_address/add_address_automated_client-1pkt.pkt 0!
+add_address_specified_client.pkt ./add_address/add_address_specified_client.pkt 0!
+dss_1pkt-999-FIN_to_kernel.pkt ./dss/dss_1pkt-999-FIN_to_kernel.pkt 0!
+dss_2pkt-1000_write_auto.pkt ./dss/dss_2pkt-1000_write_auto.pkt 0!
+dss_2pkt-1000_write_specified.pkt ./dss/dss_2pkt-1000_write_specified.pkt 0!
+dss_3pkt-1000_auto.pkt ./dss/dss_3pkt-1000_auto.pkt 0!
+dss_3pkt-1000_specified.pkt ./dss/dss_3pkt-1000_specified.pkt 1
+./dss/dss_3pkt-1000_specified.pkt:24: error handling packet: bad outbound TCP options
+script packet:  0.217836 . 1:1(0) ack 1001 <dss dack4 3010182221 flags: A>
+actual packet:  0.207594 . 1:1(0) ack 1001 win 241 <dss dack4 3010181221 flags: A>!
+dss_dack_dsn_specified_relative_client.pkt ./dss/dss_dack_dsn_specified_relative_client.pkt 1
+./dss/dss_dack_dsn_specified_relative_client.pkt:20: error handling packet: bad outbound TCP options
+script packet:  0.207862 . 1:1(0) ack 1001 <nop,nop,TS val 150 ecr 700,dss dack4 2925573186 flags: A>
+actual packet:  0.197571 . 1:1(0) ack 1001 win 244 <nop,nop,TS val 120 ecr 700,dss dack4 2925572186 flags: A>!
+dss_dack_dsn_specified_relative_server.pkt ./dss/dss_dack_dsn_specified_relative_server.pkt 0!
+dss_ssn_specified_client.pkt ./dss/dss_ssn_specified_client.pkt 1
+./dss/dss_ssn_specified_client.pkt:20: error handling packet: bad outbound TCP options
+script packet:  0.209763 . 1:1(0) ack 1001 <nop,nop,TS val 150 ecr 700,dss dack4 643627705 flags: A>
+actual packet:  0.199515 . 1:1(0) ack 1001 win 244 <nop,nop,TS val 120 ecr 700,dss dack4 643626705 flags: A>!
+dss_ssn_specified_server.pkt ./dss/dss_ssn_specified_server.pkt 0!
+mp_capable-no_checksum-dss1000.pkt ./mp_capable/mp_capable-no_checksum-dss1000.pkt 0
+net.mptcp.mptcp_checksum = 0
+net.mptcp.mptcp_checksum = 1!
+mp_capable_bind+dss.pkt ./mp_capable/mp_capable_bind+dss.pkt 0!
+mp_capable_bind.pkt ./mp_capable/mp_capable_bind.pkt 0!
+mp_capable_bind_flags.pkt ./mp_capable/mp_capable_bind_flags.pkt 0!
+mp_capable_bind_ipv6.pkt ./mp_capable/mp_capable_bind_ipv6.pkt 1
+error executing route command 'ip route del 2001:db8::/32 > /dev/null 2>&1 ; ip route add 2001:db8::/32 dev tun0 via fd3d:fa7b:d17d::2 > /dev/null 2>&1'!
+mp_capable_bind_no_cs.pkt ./mp_capable/mp_capable_bind_no_cs.pkt 0
+net.mptcp.mptcp_checksum = 0
+net.mptcp.mptcp_checksum = 1!
+mp_capable_bind_user_defined_vars.pkt ./mp_capable/mp_capable_bind_user_defined_vars.pkt 0!
+mp_capable_connect.pkt ./mp_capable/mp_capable_connect.pkt 0!
+mp_fail_specified_client.pkt ./mp_fail/mp_fail_specified_client.pkt 0!
+mp_fastclose_close_server.pkt ./mp_fastclose/mp_fastclose_close_server.pkt 0!
+mp_join-subflows_2pkt_1000.pkt ./mp_join/mp_join-subflows_2pkt_1000.pkt 0!
+mp_join-subflows_write_2pkt_1000.pkt ./mp_join/mp_join-subflows_write_2pkt_1000.pkt 0!
+mp_join_packd_to_kernel.pkt ./mp_join/mp_join_packd_to_kernel.pkt 0!
+mp_join_packd_to_kernel_backup.pkt ./mp_join/mp_join_packd_to_kernel_backup.pkt 0!
+mp_join_packd_to_kernel_ipv6.pkt ./mp_join/mp_join_packd_to_kernel_ipv6.pkt 1
+error executing route command 'ip route del 2001:db8::/32 > /dev/null 2>&1 ; ip route add 2001:db8::/32 dev tun0 via fd3d:fa7b:d17d::2 > /dev/null 2>&1'!
+no_mpc_in_ack_subflow.pkt ./mp_join/no_mpc_in_ack_subflow.pkt 1
+./mp_join/no_mpc_in_ack_subflow.pkt:29: error handling packet: live packet field ipv4_total_length: expected: 48 (0x30) vs actual: 40 (0x28)
+script packet:  4.531633 . 1:1(0) ack 1001 <dss dack4 4294967295 flags: A>
+actual packet:  4.521387 . 1:1(0) ack 1001 win 225 !
+mp_prio_specified_client.pkt ./mp_prio/mp_prio_specified_client.pkt 1
+./mp_prio/mp_prio_specified_client.pkt:10: error handling packet: live packet field ipv4_total_length: expected: 80 (0x50) vs actual: 52 (0x34)
+script packet:  0.010729 . 1:1(0) ack 1 <nop,nop,TS val 100 ecr 700,mp_capable sender_key: 7827832868007057923 receiver_key: 4278996796362095220, flags: |A|H|,dss dack4 4261412863 flags: A>
+actual packet:  0.000505 . 1:1(0) ack 1 win 229 <nop,nop,TS val 100 ecr 700>!
+remove_address_specified_client.pkt ./remove_address/remove_address_specified_client.pkt 1
+./remove_address/remove_address_specified_client.pkt:10: error handling packet: live packet field ipv4_total_length: expected: 80 (0x50) vs actual: 52 (0x34)
+script packet:  0.039222 . 1:1(0) ack 1 <nop,nop,TS val 100 ecr 700,mp_capable sender_key: 4999039710072676772 receiver_key: 4030470030216790923, flags: |A|H|,dss dack4 4261412863 flags: A>
+actual packet:  0.029001 . 1:1(0) ack 1 win 229 <nop,nop,TS val 100 ecr 700>!
